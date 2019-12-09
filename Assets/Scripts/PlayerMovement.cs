@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCounter;
     public float horMovement = 0;
     public float accel = 1;
+    public float raydistance = 0.7f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+        if (GetComponent<Animator>().GetBool("Big"))
+        {
+            raydistance = 1.2f;
+        }
     }
     void Move()
     {
@@ -61,6 +66,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             GetComponent<Animator>().SetBool("Jump", true);
+            if (GetComponent<BoxCollider2D>().size == new Vector2(0.75f, 1.0f))
+            {
+                GetComponents<AudioSource>()[0].PlayOneShot(GetComponents<AudioSource>()[0].clip);
+            }
+            else
+            {
+                GetComponents<AudioSource>()[1].PlayOneShot(GetComponents<AudioSource>()[1].clip);
+            }
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpForce);
             isGrounded = false;
             stillJumping = false;
@@ -100,26 +113,36 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + .5f, transform.position.y), Vector2.down);
         RaycastHit2D hitleft = Physics2D.Raycast(new Vector2(transform.position.x - .5f, transform.position.y), Vector2.down);
-        if ((hit.collider != null && hit.distance < 0.7f && hit.collider.tag == "Enemy") || (hitleft.collider != null && hitleft.distance < 0.7f && hitleft.collider.tag == "Enemy"))
+        if ((hit.collider != null && hit.distance < raydistance && hit.collider.tag == "Enemy") || (hitleft.collider != null && hitleft.distance < raydistance && hitleft.collider.tag == "Enemy"))
         {
-            if (hit.collider != null && hit.distance < 0.7f && hit.collider.tag == "Enemy")
+            if (hit.collider != null && hit.distance < raydistance && hit.collider.tag == "Enemy")
             {
                 GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+                if (hit.collider.gameObject.GetComponent<EnemyMove>().enabled)
+                {
+                    hit.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(hit.collider.gameObject.GetComponent<AudioSource>().clip);
+                }
                 hit.collider.gameObject.GetComponent<EnemyMove>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 hit.collider.gameObject.GetComponent<Animator>().SetBool("dead", true);
+                GetComponent<Score>().score += 100;
             }
-            if (hitleft.collider != null && hitleft.distance < 0.7f && hitleft.collider.tag == "Enemy")
+            if (hitleft.collider != null && hitleft.distance < raydistance && hitleft.collider.tag == "Enemy")
             {
                 GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+                if (hitleft.collider.gameObject.GetComponent<EnemyMove>().enabled)
+                {
+                    hitleft.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(hitleft.collider.gameObject.GetComponent<AudioSource>().clip);
+                }
                 hitleft.collider.gameObject.GetComponent<EnemyMove>().enabled = false;
                 hitleft.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
                 hitleft.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 hitleft.collider.gameObject.GetComponent<Animator>().SetBool("dead", true);
+                GetComponent<Score>().score += 100;
             }
         }
-        else if ((hit.collider != null && hit.distance < 0.7f) || (hitleft.collider != null && hitleft.distance < 0.7f))
+        else if ((hit.collider != null && hit.distance < raydistance) || (hitleft.collider != null && hitleft.distance < raydistance))
         {
             isGrounded = true;
             GetComponent<Animator>().SetBool("Jump", false);
@@ -129,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
         RaycastHit2D hitup = Physics2D.Raycast(transform.position, Vector2.up);
-        if (hitup.collider != null && hitup.distance < 0.7f && hitup.collider.tag == "Box")
+        if (hitup.collider != null && hitup.distance < raydistance && hitup.collider.tag == "Box")
         {
             hitup.collider.gameObject.GetComponent<Animator>().SetBool("isHit", true);
             stillJumping = true;

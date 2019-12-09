@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6202991551859669928}
   - component: {fileID: 3214233290176936382}
   - component: {fileID: 1436574147878241080}
+  - component: {fileID: 3651964326567311941}
   m_Layer: 0
   m_Name: MysteryBox (1)
   m_TagString: Box
@@ -217,3 +218,16 @@ CompositeCollider2D:
       - {x: 0.4999971, y: -0.5}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
+--- !u!114 &3651964326567311941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6202991551859669931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80a0046c71114d4ea7b3dd1cefd3d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects: {fileID: 620673969161057918, guid: 51de4e85c0739bc4c9950d749a806e3c, type: 3}

@@ -21,33 +21,16 @@ public class EnemyMove : MonoBehaviour
         {
             if (hit.collider.tag == "Player")
             {
-                hit.collider.gameObject.GetComponent<PlayerHealth>().dead = true;
+                if (!hit.collider.gameObject.GetComponent<PlayerHealth>().big)
+                {
+                    hit.collider.gameObject.GetComponent<PlayerHealth>().dead = true;
+                }
+                else
+                {
+                    hit.collider.gameObject.GetComponent<PlayerHealth>().ishit = true;
+                }
             }
             xMove = xMove * -1;
         }
-        //RaycastHit2D hitupright = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + .5), new Vector2(xMove, 0));
-        //if (hitupright.collider != null && hitupright.distance < 0.7f)
-        //{
-        //    if (hitupright.collider.tag == "Player")
-        //    {
-        //        hitupright.collider.gameObject.GetComponent<PlayerHealth>().dead = true;
-        //    }
-        //}
-        //RaycastHit2D hitdownright = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .5), new Vector2(xMove, 0));
-        //if (hitdownright.collider != null && hitdownright.distance < 0.7f)
-        //{
-        //    if (hitdownright.collider.tag == "Player")
-        //    {
-        //        hitdownright.collider.gameObject.GetComponent<PlayerHealth>().dead = true;
-        //    }
-        //}
-        //RaycastHit2D hitdownright = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .5), new Vector2(xMove, 0));
-        //if (hitdownright.collider != null && hitdownright.distance < 0.7f)
-        //{
-        //    if (hitdownright.collider.tag == "Player")
-        //    {
-        //        hitdownright.collider.gameObject.GetComponent<PlayerHealth>().dead = true;
-        //    }
-        //}
     }
 }
