@@ -156,6 +156,28 @@ public class PlayerMovement : MonoBehaviour
         {
             hitup.collider.gameObject.GetComponent<Animator>().SetBool("isHit", true);
             stillJumping = true;
+            RaycastHit2D hitbox = Physics2D.Raycast(new Vector2(hitup.collider.gameObject.transform.position.x - 0.5f, hitup.collider.gameObject.transform.position.y + 0.5f), Vector2.up);
+            if (hitbox.collider != null && hitbox.distance < 0.1f && hitbox.collider.tag == "Enemy")
+            {
+                if (hitbox.collider.gameObject.GetComponent<EnemyMove>().enabled)
+                {
+                    hitbox.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(hitbox.collider.gameObject.GetComponent<AudioSource>().clip);
+                }
+                hitbox.collider.gameObject.GetComponent<EnemyMove>().enabled = false;
+                hitbox.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                hitbox.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(hitbox.collider.gameObject.GetComponent<Rigidbody2D>().velocity.x, 4);
+            }
+            RaycastHit2D hitboxleft = Physics2D.Raycast(new Vector2(hitup.collider.gameObject.transform.position.x + 0.5f, hitup.collider.gameObject.transform.position.y + 0.5f), Vector2.up);
+            if (hitboxleft.collider != null && hitboxleft.distance < 0.1f && hitboxleft.collider.tag == "Enemy")
+            {
+                if (hitboxleft.collider.gameObject.GetComponent<EnemyMove>().enabled)
+                {
+                    hitboxleft.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(hitboxleft.collider.gameObject.GetComponent<AudioSource>().clip);
+                }
+                hitboxleft.collider.gameObject.GetComponent<EnemyMove>().enabled = false;
+                hitboxleft.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                hitboxleft.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(hitboxleft.collider.gameObject.GetComponent<Rigidbody2D>().velocity.x, 4);
+            }
         }
     }
 }

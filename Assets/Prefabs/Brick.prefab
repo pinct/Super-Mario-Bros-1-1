@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9035584518485942918}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Brick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,11 +229,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9035584518485942918}
     m_Modifications:
-    - target: {fileID: 534220646959738731, guid: 7e7cd32c66035204a9383e7fb12cb48f,
-        type: 3}
-      propertyPath: m_Name
-      value: Bricks
-      objectReference: {fileID: 0}
     - target: {fileID: 534220646959738727, guid: 7e7cd32c66035204a9383e7fb12cb48f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,6 +283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 534220646959738731, guid: 7e7cd32c66035204a9383e7fb12cb48f,
+        type: 3}
+      propertyPath: m_Name
+      value: Bricks
       objectReference: {fileID: 0}
     - target: {fileID: 534220646959738725, guid: 7e7cd32c66035204a9383e7fb12cb48f,
         type: 3}

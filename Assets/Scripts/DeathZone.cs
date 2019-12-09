@@ -21,5 +21,9 @@ public class DeathZone : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerHealth>().dead = true;
         }
+        else
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

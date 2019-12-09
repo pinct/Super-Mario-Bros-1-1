@@ -24,7 +24,8 @@ public class PlayerHealth : MonoBehaviour
         }
         if(dead && !big)
         {
-           Death();
+           StartCoroutine(Death());
+           dead = false;
         }
         else if (dead)
         {
@@ -33,10 +34,17 @@ public class PlayerHealth : MonoBehaviour
             dead = false;
         }
     }
-    void Death()
+    IEnumerator Death()
     {
         GetComponent<Score>().lives = GetComponent<Score>().lives - 1;
+        GetComponent<Animator>().SetBool("Dead", true);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2);
+        GetComponent<Rigidbody2D>().gravityScale = 0.6f;
+        GetComponent<BoxCollider2D>().enabled = false;
         GameObject.FindGameObjectWithTag("Mystery").GetComponent<DataManagement>().lives = GetComponent<Score>().lives;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponents<AudioSource>()[0].enabled = false;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponents<AudioSource>()[3].PlayOneShot(GameObject.FindGameObjectWithTag("MainCamera").GetComponents<AudioSource>()[3].clip);
+        yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene("1-1");
     }
     IEnumerator hit()
